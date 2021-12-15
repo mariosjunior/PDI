@@ -27,5 +27,46 @@ export default class AuthController {
             return
         }
 
+        //Checar se o usuario existe
+        const checkIfUserExists = await User.findOne({
+            where: {
+                email: email
+            }
+        })
+
+        if (checkIfUserExists) {
+            req.flash('message', 'O e-mail já está em uso!')
+            res.render('auth/register')
+
+            return
+        }
+
+        //Criar senha
+
+        const salt = bcrypt.genSaltSync(10)
+        const hashedPassword = bcrypt.hashSync(password, salt)
+        const user = {
+            name,
+            email,
+            password: hashedPassword
+        }
+
+        try {
+            const createdUser = await User.create(user)
+            //Inicializar a sessão
+            req.session.userid = createdUser.id
+
+            req.flash('message', 'Cadastro realizado com sucesso!')
+
+            req.session.save(() => {
+                res.redirect('/')
+            })
+            res.redirect('/')
+
+        } catch (e) {
+            console.error(e)
+        }
+
+
     }
 }
