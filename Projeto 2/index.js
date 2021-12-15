@@ -15,8 +15,11 @@ import {
     User
 } from './models/User.js'
 import {
-    router
+    toughtsRoutes
 } from './routes/toughtsRoutes.js'
+import {
+    authRoutes
+} from './routes/authRoutes.js'
 import ToughtController from './controllers/ToughtsController.js';
 
 const app = express()
@@ -66,7 +69,9 @@ app.use((req, res, next) => {
 })
 
 //Routes
-app.use('/tought', router)
+app.use('/tought', toughtsRoutes)
+app.use('/', authRoutes)
+
 app.get('/', ToughtController.showToughts)
 
 //.sync({force:true})
