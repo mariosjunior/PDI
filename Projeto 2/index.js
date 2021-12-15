@@ -8,9 +8,22 @@ import flash from 'express-flash'
 import {
     conn
 } from './db/conn.js'
+import {
+    Tought
+} from './models/Tought.js'
+import {
+    User
+} from './models/User.js'
+import {
+    router
+} from './routes/toughtsRoutes.js'
+import ToughtController from './controllers/ToughtsController.js';
+
 const app = express()
 
 const FileStore = sessionFileStore(session);
+
+
 
 
 app.engine('handlebars', engine())
@@ -52,7 +65,11 @@ app.use((req, res, next) => {
     next()
 })
 
+//Routes
+app.use('/tought', router)
+app.get('/', ToughtController.showToughts)
 
+//.sync({force:true})
 conn.sync().then(() => {
-    app.listen(300)
+    app.listen(3000)
 }).catch((e) => console.error(e))
