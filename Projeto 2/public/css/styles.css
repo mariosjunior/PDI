@@ -49,6 +49,17 @@
     padding: 2em;
 }
 
+/* MESSAGES */
+.messages {
+    padding: 1em;
+    color: #EDEDED;
+    background-color: #444444;
+    border: 1px solid #DA0037;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 auto 2em;
+}
+
 /* LOGIN E REGISTER */
 .auth-container {
     max-width: 450px;
