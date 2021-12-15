@@ -7,6 +7,43 @@ export default class AuthController {
     static login(req, res) {
         res.render('auth/login')
     }
+    static async loginPost(req, res) {
+        const {
+            email,
+            password
+        } = req.body
+
+        //Encontrar usuario
+        const user = await User.findOne({
+            where: {
+                email: email
+            }
+        })
+
+        if (!user) {
+            req.flash('message', 'Usuário não existe!')
+            res.render('auth/login')
+            return
+        }
+        // Checar senhas
+
+        const passwordMatch = bcrypt.compareSync(password, user.password)
+
+        if (!passwordMatch) {
+            req.flash('message', 'Senha inválida!')
+            res.render('auth/login')
+            return
+        }
+        //Inicializar a sessão
+        req.session.userid = user.id
+
+        req.flash('message', 'Usuário logado com sucesso!')
+
+        req.session.save(() => {
+            res.redirect('/')
+        })
+    }
+
     static register(req, res) {
         res.render('auth/register')
     }
@@ -61,12 +98,15 @@ export default class AuthController {
             req.session.save(() => {
                 res.redirect('/')
             })
-            res.redirect('/')
 
         } catch (e) {
             console.error(e)
         }
 
 
+    }
+    static logout(req, res) {
+        req.session.destroy()
+        res.redirect('/login')
     }
 }

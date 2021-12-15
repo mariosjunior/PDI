@@ -4,5 +4,7 @@ AuthController
 from '../controllers/AuthController.js'
 export const authRoutes = express.Router()
 authRoutes.get('/login', AuthController.login)
+authRoutes.post('/login', AuthController.loginPost)
 authRoutes.get('/register', AuthController.register)
 authRoutes.post('/register', AuthController.registerPost)
+authRoutes.get('/logout', AuthController.logout)
