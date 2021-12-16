@@ -1,9 +1,9 @@
 import {
     Tought
 } from '../models/Tought.js'
-// import {
-//     User
-// } from '../models/User'
+import {
+    User
+} from '../models/User.js'
 
 export default class ToughtController {
     static async showToughts(req, res) {
@@ -11,7 +11,23 @@ export default class ToughtController {
     }
 
     static async dashboard(req, res) {
-        res.render('toughts/dashboard')
+        const userId = req.session.userid
+        const user = await User.findOne({
+            where: {
+                id: userId
+            },
+            include: Tought,
+            plain: true
+        })
+
+        if (!user) {
+            res.redirect('/login')
+        }
+
+        const toughts = user.Toughts.map((result) => result.dataValues)
+        res.render('toughts/dashboard', {
+            toughts
+        })
     }
 
     static async createTought(req, res) {
@@ -34,5 +50,25 @@ export default class ToughtController {
             console.error(e)
         }
 
+    }
+
+    static async removeTought(req, res) {
+        const id = req.body.id
+        const UserId = req.session.userid
+
+        try {
+            await Tought.destroy({
+                where: {
+                    id: id,
+                    UserId: UserId
+                }
+            })
+            req.flash('message', 'Pensamento removido com sucesso!')
+            req.session.save(() => {
+                res.redirect('/toughts/dashboard')
+            })
+        } catch (e) {
+            console.error(e)
+        }
     }
 }
