@@ -8,7 +8,7 @@
         {{#each toughts}}
         <li>
             <span class="label">{{this.title}}</span>
-            <span class="actions"><a href="/" class="btn">Editar</a>
+            <span class="actions"><a href="/toughts/edit/{{this.id}}" class="btn">Editar</a>
                 <form action="/toughts/remove" method="POST">
                     <input type="hidden" name="id" value="{{this.id}}">
                     <input type="submit" value="Excluir" class="btn">
@@ -17,4 +17,7 @@
         </li>
         {{/each}}
     </ul>
+    {{#if emptyToughts}}
+    <p>Ainda não há nenhum pensamento seu, comece criando por <a href="/toughts/add">aqui!</a></p>
+    {{/if}}
 </div>
