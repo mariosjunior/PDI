@@ -7,22 +7,22 @@ Projeto simulando um caixa eletrônico bem simples feito sem interface gráfica,
 
 Interface principal
 -------------
-![01](https://github.com/mariosjunior/PDI/tree/master/assets/01.png)
+![01](../assets/01.png)
 
 Criar conta
 -------------
-![02](https://github.com/mariosjunior/PDI/tree/master/assets/02.png)
+![02](../assets//02.png)
 
 Consultar saldo
 -------------
-![03](https://github.com/mariosjunior/PDI/tree/master/assets/03.png)
+![03](../assets/03.png)
 
 Depositar dinheiro
 -------------
-![04](https://github.com/mariosjunior/PDI/tree/master/assets/04.png)
+![04](../assets/04.png)
 
 Sacar dinheiro
 -------------
-![05](https://github.com/mariosjunior/PDI/tree/master/assets/05.png)
+![05](../assets//05.png)
 
 
